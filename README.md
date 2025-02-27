@@ -1,11 +1,46 @@
-# Gestordecontactos
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-    Point location = this.getLocation();
-    this.setVisible(false);
-    
-    Pag3 m2 = new Pag3();
-    m2.setNombreUsuario2(dato);
-    
-    m2.setLocation(location);
-    m2.setVisible(true);
+# Gestordecontactos agregar un nuevo contacto 
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    String nombre = jTextField1.getText().trim();
+    String telefono = jTextField2.getText().trim();
+    String email = jTextField3.getText().trim();
+
+    if (dato == null || dato.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El nombre de usuario no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (nombre.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Ruta del archivo donde se guardan los contactos
+    String ruta = "C:\\FICHERO\\" + dato + "\\DATAA.txt";
+
+    try {
+        File archivo = new File(ruta);
+        
+        if (!archivo.exists()) {
+            archivo.getParentFile().mkdirs();
+            archivo.createNewFile();
+        }
+
+        FileWriter crear = new FileWriter(archivo, true);
+        PrintWriter escribir = new PrintWriter(crear);
+
+        // Guarda el contacto en formato: nombre, teléfono, email
+        escribir.println(nombre + "," + telefono + "," + email);
+
+        escribir.close();
+        crear.close();
+
+        JOptionPane.showMessageDialog(null, "Contacto agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Limpiar los campos
+    jTextField1.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
 }
