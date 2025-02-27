@@ -30,9 +30,5 @@ private void cargarContactosDesdeArchivo() {
     }
 }
 
-// Se usa en el botón de "Cargar" contactos
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    cargarContactosDesdeArchivo();
-}
 
 
